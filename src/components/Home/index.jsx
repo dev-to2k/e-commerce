@@ -24,7 +24,7 @@ const Home = ({ data }) => {
   return (
     <Box className="home">
       <Hero />
-      <Box className="home__new-products" paddingY={5}>
+      <Box className="home__new-products" textAlign="center" paddingY={5}>
         <Heading marginBottom={10}>New Products</Heading>
         <Container maxW="1204">
           {isLoading ? (

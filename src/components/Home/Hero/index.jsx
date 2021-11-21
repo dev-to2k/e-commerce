@@ -27,7 +27,7 @@ export default function Hero() {
           >
             A few clicks is
             <br />
-            <Text as={'span'} color={'green.400'}>
+            <Text as={'span'} color={'green.500'}>
               all it takes.
             </Text>
           </Heading>
@@ -45,7 +45,6 @@ export default function Hero() {
           >
             <Button
               colorScheme={'green'}
-              bg={'green.400'}
               rounded={'full'}
               px={6}
               _hover={{

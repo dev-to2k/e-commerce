@@ -7,7 +7,9 @@ export const CartCount = styled.span`
   font-weight: bold;
   width: 1rem;
   height: 1rem;
-  line-height: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
   position: absolute;
   top: -0.5rem;

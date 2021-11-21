@@ -8,20 +8,10 @@ const Products = ({ data }) => {
   const [isFilter, setIsFilter] = React.useState(false);
   const [filter, setFilter] = React.useState([]);
 
-  // filter by category
-  const filteredData = data.filter((item) => {
-    if (filter.category === '') {
-      return item;
-    }
-    return item.category === filter.category;
-  });
-
-  const onFilter = (filtered) => {
+  const onFilter = (data) => {
     setIsFilter(true);
-    setFilter([...filter, filtered]);
+    console.log(data);
   };
-
-  console.log(filter);
 
   return (
     <Box paddingY={10}>
