@@ -15,15 +15,15 @@ const Filter = ({ onFilter }) => {
     },
     {
       id: 2,
-      label: 'Men clothing',
+      label: "Men's clothing",
     },
     {
       id: 3,
-      label: 'Women clothing',
+      label: "Women's clothing",
     },
     {
       id: 4,
-      label: 'Jewelry',
+      label: 'Jewelery',
     },
     {
       id: 5,
@@ -44,6 +44,15 @@ const Filter = ({ onFilter }) => {
     onFilter(state);
   };
 
+  const switchCategory = (data) => {
+    setState({
+      ...state,
+      category: data.label,
+    });
+
+    onFilter(data.label);
+  };
+
   return (
     <>
       <Flex alignItems="center">
@@ -53,8 +62,11 @@ const Filter = ({ onFilter }) => {
               key={category.id}
               colorScheme="green"
               variant={state.category === category.label ? 'solid' : 'outline'}
+              backgroundColor={
+                state.category === category.label ? 'green.500' : 'white'
+              }
               mr={2}
-              onClick={(e) => setState({ ...state, category: category.label })}
+              onClick={() => switchCategory(category)}
             >
               {category.label}
             </Button>
@@ -66,6 +78,8 @@ const Filter = ({ onFilter }) => {
             <Flex marginY={5} style={{ gap: '1rem' }}>
               <Box>
                 <Select
+                  variant="outline"
+                  backgroundColor={'white'}
                   placeholder="Price"
                   name="price"
                   onChange={(e) => handleChange(e)}
@@ -76,6 +90,8 @@ const Filter = ({ onFilter }) => {
               </Box>
               <Box>
                 <Select
+                  variant="outline"
+                  backgroundColor={'white'}
                   placeholder="Rate"
                   name="rate"
                   onChange={(e) => handleChange(e)}

@@ -38,12 +38,16 @@ const Footer = () => {
       <Container maxW="1204" height="100%" paddingTop={10}>
         <Flex justifyContent="space-between">
           <Box>
-            <Heading marginBottom={5}>E-Commerce</Heading>
+            <Heading marginBottom={5} size="lg">
+              E-Commerce
+            </Heading>
             <Text>2021 Designed by Thanh Trung.</Text>
           </Box>
           {items.map((item) => (
             <Box key={item.id}>
-              <Heading marginBottom={5}>{item.label}</Heading>
+              <Heading marginBottom={5} size="lg">
+                {item.label}
+              </Heading>
               <UnorderedList styleType="none" textAlign="left" marginLeft={0}>
                 <ListItem>{item.text1}</ListItem>
                 <ListItem>{item.text2}</ListItem>
@@ -53,7 +57,9 @@ const Footer = () => {
             </Box>
           ))}
           <Box>
-            <Heading marginBottom={5}>Stay up to date</Heading>
+            <Heading marginBottom={5} size="lg">
+              Stay up to date
+            </Heading>
             <Flex>
               <Input variant="filled" placeholder="Your email address" />
               <Button colorScheme="green" marginLeft={3}>

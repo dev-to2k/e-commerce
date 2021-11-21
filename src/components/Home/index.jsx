@@ -24,8 +24,15 @@ const Home = ({ data }) => {
   return (
     <Box className="home">
       <Hero />
-      <Box className="home__new-products" textAlign="center" paddingY={5}>
-        <Heading marginBottom={10}>New Products</Heading>
+      <Box
+        className="home__new-products"
+        textAlign="center"
+        paddingY={5}
+        backgroundColor={'gray.100'}
+      >
+        <Heading marginBottom={10} marginTop={5}>
+          New Products
+        </Heading>
         <Container maxW="1204">
           {isLoading ? (
             <>
