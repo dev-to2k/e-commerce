@@ -1,8 +1,9 @@
 import { Box, Container, Flex, Heading } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Filter from '../Filter';
-import Pagination from '../Pagination';
+import Pagination from '../Shared/Pagination';
 import ProductItem from './ProductItem';
+import Search from './Search';
 
 const Products = ({ data }) => {
   const [products, setProducts] = useState(data);
@@ -51,25 +52,59 @@ const Products = ({ data }) => {
         }
         break;
       case "Men's clothing":
-        break;
+      // eslint-disable-next-line no-fallthrough
       case "Women's clothing":
-        break;
       case 'Jewelery':
-        break;
       case 'Electronics':
-        break;
       default:
+        if (price === 'low-to-high') {
+          const newFilter = filter.sort((a, b) => a.price - b.price);
+          setFilter([...newFilter]);
+        }
+        if (price === 'high-to-low') {
+          const newFilter = filter.sort((a, b) => b.price - a.price);
+          setFilter([...newFilter]);
+        }
+        if (rate === 'low-to-high') {
+          const newFilter = filter.sort(
+            (a, b) => a.rating.rate - b.rating.rate
+          );
+          setFilter([...newFilter]);
+        }
+        if (rate === 'high-to-low') {
+          const newFilter = filter.sort(
+            (a, b) => b.rating.rate - a.rating.rate
+          );
+          setFilter([...newFilter]);
+        }
         break;
+    }
+  };
+
+  const onSearch = (search) => {
+    const searchName = search.toLowerCase();
+    const newFilter = products.filter((product) =>
+      product.title.toLowerCase().includes(searchName)
+    );
+    setProducts([...newFilter]);
+
+    if (search === '') {
+      setProducts([...data]);
     }
   };
 
   return (
     <Box paddingY={10} backgroundColor={'gray.100'}>
       <Container maxW="1204">
-        <Heading marginBottom={10} textAlign="center">
+        <Heading textAlign="center" mb={10}>
           Products
         </Heading>
-        <Filter onSwitchCategory={onSwitchCategory} onFilter={onFilter} />
+        <Filter
+          marginY={10}
+          onSwitchCategory={onSwitchCategory}
+          onFilter={onFilter}
+        />
+        <Search onSearch={onSearch} />
         <Flex wrap="wrap" marginLeft="-30px">
           {isFilter
             ? filter.map((product) => (

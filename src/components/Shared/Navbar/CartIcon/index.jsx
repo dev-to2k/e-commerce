@@ -3,7 +3,7 @@ import React from 'react';
 import * as Styled from './Cart.styled';
 import { Link } from 'react-router-dom';
 
-const Cart = () => {
+const CartIcon = () => {
   return (
     <Link to={'/cart'}>
       <Box mr="1rem" pos="relative">
@@ -21,4 +21,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartIcon;

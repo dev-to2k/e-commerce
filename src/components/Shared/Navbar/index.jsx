@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Spacer } from '@chakra-ui/react';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Cart from '../Cart';
-import Menu from '../Menu';
+import Cart from './CartIcon';
+import Menu from './Menu';
 
 const Navbar = () => {
   return (

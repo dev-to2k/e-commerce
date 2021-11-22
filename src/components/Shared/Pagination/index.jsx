@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import React from 'react';
-import './../../styles/pagination.scss';
+import '../../../styles/pagination.scss';
 
 const Pagination = () => {
   return (
