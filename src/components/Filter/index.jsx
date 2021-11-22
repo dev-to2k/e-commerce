@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Select, Spacer } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-const Filter = ({ onFilter }) => {
+const Filter = ({ onSwitchCategory, onFilter }) => {
   const [state, setState] = useState({
     price: '',
     rate: '',
@@ -50,7 +50,7 @@ const Filter = ({ onFilter }) => {
       category: data.label,
     });
 
-    onFilter(data.label);
+    onSwitchCategory(data.label);
   };
 
   return (
@@ -61,6 +61,10 @@ const Filter = ({ onFilter }) => {
             <Button
               key={category.id}
               colorScheme="green"
+              _focus={{
+                boxShadow:
+                  '0 0 1px 2px rgba(104, 211, 145, 1), 0 1px 1px rgba(0, 0, 0, .15)',
+              }}
               variant={state.category === category.label ? 'solid' : 'outline'}
               backgroundColor={
                 state.category === category.label ? 'green.500' : 'white'
@@ -101,7 +105,14 @@ const Filter = ({ onFilter }) => {
                 </Select>
               </Box>
               <Box>
-                <Button colorScheme="green" type="submit">
+                <Button
+                  colorScheme="green"
+                  type="submit"
+                  _focus={{
+                    boxShadow:
+                      '0 0 1px 2px rgba(104, 211, 145, 1), 0 1px 1px rgba(0, 0, 0, .15)',
+                  }}
+                >
                   Filter
                 </Button>
               </Box>

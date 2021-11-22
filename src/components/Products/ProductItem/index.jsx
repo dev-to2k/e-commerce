@@ -15,6 +15,7 @@ const ProductItem = ({ product }) => {
       <p>
         <strong>${product.price}</strong>
       </p>
+      <p>{product.rating.rate}</p>
       <Button colorScheme="green">Buy</Button>
     </Styled.ProductItem>
   );

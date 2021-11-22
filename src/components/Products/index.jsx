@@ -1,19 +1,19 @@
 import { Box, Container, Flex, Heading } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Filter from '../Filter';
 import Pagination from '../Pagination';
 import ProductItem from './ProductItem';
 
 const Products = ({ data }) => {
-  const [products, setProducts] = React.useState(data);
-  const [isFilter, setIsFilter] = React.useState(false);
-  const [filter, setFilter] = React.useState([]);
+  const [products, setProducts] = useState(data);
+  const [isFilter, setIsFilter] = useState(false);
+  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
     setProducts(data);
   }, [data]);
 
-  const onFilter = (category) => {
+  const onSwitchCategory = (category) => {
     const newFilter = products.filter(
       (product) => product.category === category.toLowerCase()
     );
@@ -21,8 +21,45 @@ const Products = ({ data }) => {
     setFilter(newFilter);
 
     if (category === 'All') {
-      setFilter(data);
       setIsFilter(false);
+    }
+  };
+
+  const onFilter = (data) => {
+    const { price, rate, category } = data;
+    switch (category) {
+      case 'All':
+        if (price === 'low-to-high') {
+          const newFilter = products.sort((a, b) => a.price - b.price);
+          setProducts([...newFilter]);
+        }
+        if (price === 'high-to-low') {
+          const newFilter = products.sort((a, b) => b.price - a.price);
+          setProducts([...newFilter]);
+        }
+        if (rate === 'low-to-high') {
+          const newFilter = products.sort(
+            (a, b) => a.rating.rate - b.rating.rate
+          );
+          setProducts([...newFilter]);
+        }
+        if (rate === 'high-to-low') {
+          const newFilter = products.sort(
+            (a, b) => b.rating.rate - a.rating.rate
+          );
+          setProducts([...newFilter]);
+        }
+        break;
+      case "Men's clothing":
+        break;
+      case "Women's clothing":
+        break;
+      case 'Jewelery':
+        break;
+      case 'Electronics':
+        break;
+      default:
+        break;
     }
   };
 
@@ -32,7 +69,7 @@ const Products = ({ data }) => {
         <Heading marginBottom={10} textAlign="center">
           Products
         </Heading>
-        <Filter onFilter={onFilter} />
+        <Filter onSwitchCategory={onSwitchCategory} onFilter={onFilter} />
         <Flex wrap="wrap" marginLeft="-30px">
           {isFilter
             ? filter.map((product) => (
