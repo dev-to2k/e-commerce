@@ -3,13 +3,11 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
-import Footer from './components/Shared/Footer';
-import Home from './components/Home';
-import Navbar from './components/Shared/Navbar';
 import NotFound from './components/NotFound';
-import Products from './components/Products';
-import HomePage from './pages/home';
+import Footer from './components/Shared/Footer';
+import Navbar from './components/Shared/Navbar';
 import CartPage from './pages/cart';
+import HomePage from './pages/home';
 import ProductsPage from './pages/products';
 
 function App() {

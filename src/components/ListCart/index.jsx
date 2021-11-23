@@ -1,57 +1,92 @@
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import {
+  Button,
+  Flex,
   Image,
   Table,
   Tbody,
   Td,
+  Text,
   Tfoot,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const ListCart = () => {
+  const [listCart, setListCart] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
+  if (quantity < 1) {
+    setQuantity(1);
+  }
+
+  const totalPrice = quantity * 10;
+
+  const styleQuantity = {
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: '8px',
+  };
+
   return (
     <>
       <Table variant="simple">
         <Thead>
           <Tr>
             <Th>Image</Th>
-            <Th>Name</Th>
-            <Th isNumeric>Quantity</Th>
+            <Th>Price</Th>
+            <Th textAlign="center">Quantity</Th>
             <Th isNumeric>TotalPrice</Th>
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>
-              <Image
-                boxSize="100px"
-                objectFit="cover"
-                src="https://bit.ly/sage-adebayo"
-                alt="Segun Adebayo"
-              />
-            </Td>
-            <Td>millimetres (mm)</Td>
-            <Td isNumeric>25.4</Td>
-            <Td isNumeric>25.4</Td>
-          </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>centimetres (cm)</Td>
-            <Td isNumeric>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>metres (m)</Td>
-            <Td isNumeric>0.91444</Td>
-          </Tr>
+          {listCart.map((item, index) => (
+            <Tr key={index}>
+              <Td>
+                <Flex alignItems="center">
+                  <Image
+                    boxSize="100px"
+                    objectFit="cover"
+                    src="https://bit.ly/sage-adebayo"
+                    alt="Segun Adebayo"
+                    mr={3}
+                  />
+                  <strong>name product</strong>
+                </Flex>
+              </Td>
+              <Td>
+                <Text>1</Text>
+              </Td>
+              <Td isNumeric>
+                <Flex style={{ gap: '.5rem' }}>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => setQuantity(quantity - 1)}
+                  >
+                    <MinusIcon />
+                  </Button>
+                  <Text style={styleQuantity}>{quantity}</Text>
+                  <Button
+                    colorScheme="green"
+                    onClick={() => setQuantity(quantity + 1)}
+                  >
+                    <AddIcon />
+                  </Button>
+                </Flex>
+              </Td>
+              <Td isNumeric>{totalPrice}</Td>
+            </Tr>
+          ))}
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th></Th>
-            <Th></Th>
-            <Th isNumeric>
+            <Th isNumeric colSpan={4}>
               <strong>SubTotal:</strong> $12
             </Th>
           </Tr>
