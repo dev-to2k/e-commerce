@@ -1,11 +1,12 @@
 import { Button, Image } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Styled from './index.styled';
 
 const ProductItem = ({ product }) => {
-  // get value object from button
+  const [list, setList] = useState([]);
+
   const handleClick = (data) => {
-    console.log(data);
+    setList((list) => [...list, data]);
   };
 
   return (
@@ -21,11 +22,7 @@ const ProductItem = ({ product }) => {
         <strong>${product.price}</strong>
       </p>
       <p>{product.rating.rate}</p>
-      <Button
-        colorScheme="green"
-        value={product}
-        onClick={(e) => handleClick(product)}
-      >
+      <Button colorScheme="green" onClick={(e) => handleClick(product)}>
         Buy
       </Button>
     </Styled.ProductItem>

@@ -93,6 +93,7 @@ const Products = ({ data }) => {
     }
   };
 
+
   return (
     <Box paddingY={10} backgroundColor={'gray.100'}>
       <Container maxW="1204">
