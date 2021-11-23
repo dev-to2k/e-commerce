@@ -1,13 +1,11 @@
 import { Button, Image } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/actions/cartAction';
 import * as Styled from './index.styled';
 
 const ProductItem = ({ product }) => {
-  const [list, setList] = useState([]);
-
-  const handleClick = (data) => {
-    setList((list) => [...list, data]);
-  };
+  const dispatch = useDispatch();
 
   return (
     <Styled.ProductItem key={product.id} className="home__new-products__item">
@@ -22,7 +20,7 @@ const ProductItem = ({ product }) => {
         <strong>${product.price}</strong>
       </p>
       <p>{product.rating.rate}</p>
-      <Button colorScheme="green" onClick={(e) => handleClick(product)}>
+      <Button colorScheme="green" onClick={() => dispatch(addToCart(product))}>
         Buy
       </Button>
     </Styled.ProductItem>

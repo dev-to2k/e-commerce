@@ -1,4 +1,4 @@
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { AddIcon, CloseIcon, MinusIcon } from '@chakra-ui/icons';
 import {
   Button,
   Flex,
@@ -13,16 +13,15 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const ListCart = () => {
-  const [listCart, setListCart] = useState([]);
+  const { cart } = useSelector((state) => state);
   const [quantity, setQuantity] = useState(1);
 
   if (quantity < 1) {
     setQuantity(1);
   }
-
-  const totalPrice = quantity * 10;
 
   const styleQuantity = {
     width: '40px',
@@ -43,25 +42,26 @@ const ListCart = () => {
             <Th>Price</Th>
             <Th textAlign="center">Quantity</Th>
             <Th isNumeric>TotalPrice</Th>
+            <Th>Remove</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {listCart.map((item, index) => (
+          {cart.list.map((item, index) => (
             <Tr key={index}>
               <Td>
                 <Flex alignItems="center">
                   <Image
                     boxSize="100px"
                     objectFit="cover"
-                    src="https://bit.ly/sage-adebayo"
-                    alt="Segun Adebayo"
+                    src={item.image}
+                    alt={item.title}
                     mr={3}
                   />
-                  <strong>name product</strong>
+                  <strong>{item.title}</strong>
                 </Flex>
               </Td>
               <Td>
-                <Text>1</Text>
+                <Text>{item.price}</Text>
               </Td>
               <Td isNumeric>
                 <Flex style={{ gap: '.5rem' }}>
@@ -80,13 +80,16 @@ const ListCart = () => {
                   </Button>
                 </Flex>
               </Td>
-              <Td isNumeric>{totalPrice}</Td>
+              <Td textAlign="center">{quantity * item.price}</Td>
+              <Td textAlign="center">
+                <CloseIcon />
+              </Td>
             </Tr>
           ))}
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th isNumeric colSpan={4}>
+            <Th isNumeric colSpan={5}>
               <strong>SubTotal:</strong> $12
             </Th>
           </Tr>
