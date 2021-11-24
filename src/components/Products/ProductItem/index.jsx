@@ -19,7 +19,7 @@ const ProductItem = ({ product }) => {
       <p>
         <strong>${product.price}</strong>
       </p>
-      <p>{product.rating.rate}</p>
+      <p>Rating: {product.rating.rate}</p>
       <Button colorScheme="green" onClick={() => dispatch(addToCart(product))}>
         Buy
       </Button>

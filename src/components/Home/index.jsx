@@ -8,6 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductItem from '../Products/ProductItem';
 import Hero from './Hero';
 
@@ -46,9 +47,11 @@ const Home = ({ data }) => {
               ))}
             </Flex>
           )}
-          <Button colorScheme="green" marginX="auto" marginTop={5}>
-            See more
-          </Button>
+          <Link to="/products">
+            <Button colorScheme="green" marginX="auto" marginTop={5}>
+              See more
+            </Button>
+          </Link>
         </Container>
       </Box>
     </Box>
