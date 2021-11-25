@@ -78,7 +78,7 @@ const ListCart = () => {
 
   return (
     <>
-      <Table variant="simple">
+      <Table variant="simple" height="100%">
         <Thead>
           {listCart.length > 0 && (
             <Tr>
@@ -158,7 +158,9 @@ const ListCart = () => {
           ) : (
             <Tr>
               <Td colSpan={5} textAlign="center">
-                <Text>No item in cart</Text>
+                <Text fontWeight="bold" color="gray.600">
+                  No item in cart
+                </Text>
               </Td>
             </Tr>
           )}

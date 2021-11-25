@@ -6,12 +6,21 @@ import ProductItem from './ProductItem';
 import Search from './Search';
 
 const Products = ({ data }) => {
-  const [products, setProducts] = useState(data);
+  const [state, setState] = useState({
+    products: data,
+    currentPage: 1,
+    productsPerPage: 3,
+  });
+
+  const { products, currentPage, productsPerPage } = state;
+
   const [isFilter, setIsFilter] = useState(false);
   const [filter, setFilter] = useState([]);
 
   useEffect(() => {
-    setProducts(data);
+    setState({
+      products: data,
+    });
   }, [data]);
 
   const onSwitchCategory = (category) => {
@@ -32,23 +41,31 @@ const Products = ({ data }) => {
       case 'All':
         if (price === 'low-to-high') {
           const newFilter = products.sort((a, b) => a.price - b.price);
-          setProducts([...newFilter]);
+          setState({
+            products: [...newFilter],
+          });
         }
         if (price === 'high-to-low') {
           const newFilter = products.sort((a, b) => b.price - a.price);
-          setProducts([...newFilter]);
+          setState({
+            products: [...newFilter],
+          });
         }
         if (rate === 'low-to-high') {
           const newFilter = products.sort(
             (a, b) => a.rating.rate - b.rating.rate
           );
-          setProducts([...newFilter]);
+          setState({
+            products: [...newFilter],
+          });
         }
         if (rate === 'high-to-low') {
           const newFilter = products.sort(
             (a, b) => b.rating.rate - a.rating.rate
           );
-          setProducts([...newFilter]);
+          setState({
+            products: [...newFilter],
+          });
         }
         break;
       case "Men's clothing":
@@ -86,13 +103,31 @@ const Products = ({ data }) => {
     const newFilter = products.filter((product) =>
       product.title.toLowerCase().includes(searchName)
     );
-    setProducts([...newFilter]);
+    setState({
+      products: [...newFilter],
+    });
 
     if (search === '') {
-      setProducts([...data]);
+      setState({
+        products: [...data],
+      });
     }
   };
 
+  // Logic for displaying products
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  console.log(currentProducts);
+
+  // Logic for displaying page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <Box paddingY={10} backgroundColor={'gray.100'}>
