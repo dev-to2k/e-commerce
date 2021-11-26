@@ -13,7 +13,6 @@ import ProductsPage from './pages/products';
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const getNewProducts = async () => {
     try {
@@ -22,7 +21,7 @@ function App() {
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
-      setError(error);
+      console.log(error);
       setIsLoading(false);
     }
   };
@@ -35,8 +34,14 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<HomePage data={data} isLoading={isLoading} />} />
-          <Route path="products" element={<ProductsPage data={data} isLoading={isLoading} />} />
+          <Route
+            index
+            element={<HomePage data={data} isLoading={isLoading} />}
+          />
+          <Route
+            path="products"
+            element={<ProductsPage data={data} isLoading={isLoading} />}
+          />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<CartPage />} />

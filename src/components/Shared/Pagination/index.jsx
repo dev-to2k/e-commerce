@@ -1,21 +1,33 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { Button } from '@chakra-ui/react';
 import React from 'react';
 import '../../../styles/pagination.scss';
 
-const Pagination = ({ handleClick, pageNumbers }) => {
+const Pagination = ({
+  handleClick,
+  pageNumbers,
+  handlePrev,
+  handleNext,
+  active,
+}) => {
   return (
     <ul className="page">
-      <li className="page__btn">
+      <Button onClick={() => handlePrev()}>
         <ArrowLeftIcon />
-      </li>
+      </Button>
       {pageNumbers.map((number) => (
-        <li className="page__numbers" key={number} onClick={handleClick}>
+        <Button
+          className={`page__numbers ${active === number ? 'active' : ''}`}
+          key={number}
+          id={number}
+          onClick={(e) => handleClick(e)}
+        >
           {number}
-        </li>
+        </Button>
       ))}
-      <li className="page__btn">
+      <Button onClick={() => handleNext()}>
         <ArrowRightIcon />
-      </li>
+      </Button>
     </ul>
   );
 };

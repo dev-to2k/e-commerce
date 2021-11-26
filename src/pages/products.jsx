@@ -1,9 +1,9 @@
 import React from 'react';
 import Products from '../components/Products';
 
-const ProductsPage = ({ data }) => (
+const ProductsPage = ({ data, isLoading }) => (
   <>
-    <Products data={data} />
+    <Products data={data} isLoading={isLoading} />
   </>
 );
 

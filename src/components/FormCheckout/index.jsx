@@ -8,11 +8,8 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 const FormCheckout = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <Stack spacing={8} mx={'auto'} maxW={'lg'}>
       <Box

@@ -10,20 +10,22 @@ const Products = ({ data, isLoading }) => {
     products: [],
     currentPage: 0,
     productsPerPage: 0,
+    active: 0,
   });
-
-  const { products, currentPage, productsPerPage } = state;
-
-  const [isFilter, setIsFilter] = useState(false);
-  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
     setState({
       products: [...data],
       currentPage: 1,
-      productsPerPage: 4,
+      productsPerPage: 12,
+      active: 1,
     });
   }, [data]);
+
+  const { products, currentPage, productsPerPage, active } = state;
+
+  const [isFilter, setIsFilter] = useState(false);
+  const [filter, setFilter] = useState([]);
 
   const onSwitchCategory = (category) => {
     const newFilter = products.filter(
@@ -132,8 +134,31 @@ const Products = ({ data, isLoading }) => {
   }
 
   const handleClick = (e) => {
-    // setState({ currentPage: Number(e.target.id) });
-    console.log(e.target.id);
+    setState({
+      ...state,
+      currentPage: Number(e.target.id),
+      active: Number(e.target.id),
+    });
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setState({
+        ...state,
+        currentPage: currentPage - 1,
+        active: currentPage - 1,
+      });
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < pageNumbers.length) {
+      setState({
+        ...state,
+        currentPage: currentPage + 1,
+        active: currentPage + 1,
+      });
+    }
   };
 
   const renderProducts = () => {
@@ -159,17 +184,23 @@ const Products = ({ data, isLoading }) => {
           onFilter={onFilter}
         />
         <Search onSearch={onSearch} />
-        <Flex wrap="wrap" marginLeft="-30px">
+        <Flex wrap="wrap" marginLeft={-30}>
           {isLoading ? (
-            <>
+            <Box mx="auto" pl={30} mb={5}>
               <Spinner color="green" size="xl" />
               <Text>Loading...</Text>
-            </>
+            </Box>
           ) : (
             renderProducts()
           )}
         </Flex>
-        <Pagination handleClick={handleClick} pageNumbers={pageNumbers} />
+        <Pagination
+          handleClick={handleClick}
+          pageNumbers={pageNumbers}
+          handlePrev={handlePrev}
+          handleNext={handleNext}
+          active={active}
+        />
       </Container>
     </Box>
   );
