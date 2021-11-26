@@ -32,12 +32,18 @@ const Products = ({ data, isLoading }) => {
     const newFilter = data.filter(
       (product) => product.category === category.toLowerCase()
     );
-    setIsFilter(true);
-    setFilter(newFilter);
+    setState({
+      ...state,
+      isFilter: true,
+      filter: [...newFilter],
+    });
 
     if (category === 'All') {
-      setIsFilter(false);
-    }
+     setState({
+        ...state,
+        isFilter: false,
+        filter: [...data],
+    });
   };
 
   const handleClick = (e) => {
