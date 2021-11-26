@@ -1,5 +1,5 @@
 import { Box, Container, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Filter from '../Filter';
 import Pagination from '../Shared/Pagination';
 import ProductItem from './ProductItem';
@@ -12,15 +12,24 @@ const Products = ({ data, isLoading }) => {
     active: 1,
     isFilter: false,
     filter: [],
+    products: [],
   });
 
-  const { isFilter, filter, currentPage, productsPerPage, active } = state;
+  const { isFilter, filter, currentPage, productsPerPage, active, products } =
+    state;
+
+  useEffect(() => {
+    setState({
+      ...state,
+      products: data,
+    });
+  }, [data]);
 
   // Logic for displaying products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  let currentProducts = data.slice(indexOfFirstProduct, indexOfLastProduct);
+  let currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   // Logic for displaying page numbers
   const pageNumbers = [];
@@ -39,11 +48,12 @@ const Products = ({ data, isLoading }) => {
     });
 
     if (category === 'All') {
-     setState({
+      setState({
         ...state,
         isFilter: false,
         filter: [...data],
-    });
+      });
+    }
   };
 
   const handleClick = (e) => {
@@ -79,13 +89,36 @@ const Products = ({ data, isLoading }) => {
     switch (category) {
       case 'All':
         if (price === 'low-to-high') {
-          [...currentProducts].sort((a, b) => a.price - b.price);
+          const newFilter = products.sort((a, b) => a.price - b.price);
+          setState({
+            ...state,
+            products: [...newFilter],
+          });
         }
         if (price === 'high-to-low') {
+          const newFilter = products.sort((a, b) => b.price - a.price);
+          setState({
+            ...state,
+            products: [...newFilter],
+          });
         }
         if (rate === 'low-to-high') {
+          const newFilter = products.sort(
+            (a, b) => a.rating.rate - b.rating.rate
+          );
+          setState({
+            ...state,
+            products: [...newFilter],
+          });
         }
         if (rate === 'high-to-low') {
+          const newFilter = products.sort(
+            (a, b) => b.rating.rate - a.rating.rate
+          );
+          setState({
+            ...state,
+            products: [...newFilter],
+          });
         }
         break;
       case "Men's clothing":
@@ -134,8 +167,11 @@ const Products = ({ data, isLoading }) => {
     const newFilter = data.filter((product) =>
       product.title.toLowerCase().includes(searchName)
     );
-    setIsFilter(true);
-    setFilter(newFilter);
+    setState({
+      ...state,
+      isFilter: true,
+      filter: [...newFilter],
+    });
   };
 
   const renderProducts = () => {
