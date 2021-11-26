@@ -7,21 +7,12 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductItem from '../Products/ProductItem';
 import Hero from './Hero';
 
-const Home = ({ data }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
+const Home = ({ data, isLoading }) => {
   return (
     <Box className="home">
       <Hero />

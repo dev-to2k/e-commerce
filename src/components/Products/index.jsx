@@ -1,15 +1,15 @@
-import { Box, Container, Flex, Heading } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import Filter from '../Filter';
 import Pagination from '../Shared/Pagination';
 import ProductItem from './ProductItem';
 import Search from './Search';
 
-const Products = ({ data }) => {
+const Products = ({ data, isLoading }) => {
   const [state, setState] = useState({
-    products: data,
-    currentPage: 1,
-    productsPerPage: 3,
+    products: [],
+    currentPage: 0,
+    productsPerPage: 0,
   });
 
   const { products, currentPage, productsPerPage } = state;
@@ -19,7 +19,9 @@ const Products = ({ data }) => {
 
   useEffect(() => {
     setState({
-      products: data,
+      products: [...data],
+      currentPage: 1,
+      productsPerPage: 4,
     });
   }, [data]);
 
@@ -117,17 +119,33 @@ const Products = ({ data }) => {
   // Logic for displaying products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
   const currentProducts = products.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  console.log(currentProducts);
 
   // Logic for displaying page numbers
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  const handleClick = (e) => {
+    // setState({ currentPage: Number(e.target.id) });
+    console.log(e.target.id);
+  };
+
+  const renderProducts = () => {
+    if (isFilter) {
+      return filter.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ));
+    }
+    return currentProducts.map((product) => (
+      <ProductItem key={product.id} product={product} />
+    ));
+  };
 
   return (
     <Box paddingY={10} backgroundColor={'gray.100'}>
@@ -142,15 +160,16 @@ const Products = ({ data }) => {
         />
         <Search onSearch={onSearch} />
         <Flex wrap="wrap" marginLeft="-30px">
-          {isFilter
-            ? filter.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))
-            : products.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))}
+          {isLoading ? (
+            <>
+              <Spinner color="green" size="xl" />
+              <Text>Loading...</Text>
+            </>
+          ) : (
+            renderProducts()
+          )}
         </Flex>
-        <Pagination />
+        <Pagination handleClick={handleClick} pageNumbers={pageNumbers} />
       </Container>
     </Box>
   );

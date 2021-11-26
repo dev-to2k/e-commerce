@@ -1,9 +1,9 @@
 import React from 'react';
 import Home from '../components/Home';
 
-const HomePage = ({ data }) => (
+const HomePage = ({ data, isLoading }) => (
   <>
-    <Home data={data} />
+    <Home data={data} isLoading={isLoading} />
   </>
 );
 
