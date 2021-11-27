@@ -8,13 +8,16 @@ export const cartReducer = (state = initialState, action) => {
     case 'ADD_TO_CART':
       // if the item is already in the cart, we just group items together
       if (list.find((item) => item.id === action.payload.id)) {
+        const newList = list.map((item) =>
+          item.id === action.payload.id ? item : state
+        );
         return {
           ...state,
-          list: list.map((item) => {
-            return item.id === action.payload.id ? item : state;
-          }),
+          list: [...newList],
         };
       }
+
+      localStorage.setItem('cart', JSON.stringify(list.concat(action.payload)));
 
       // if the item is not in the cart, we add it to the cart
       return {
@@ -22,11 +25,14 @@ export const cartReducer = (state = initialState, action) => {
         list: [...list, action.payload],
       };
     case 'REMOVE_FROM_CART':
+      const newList = list.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem('cart', JSON.stringify(newList));
       return {
         ...state,
-        list: list.filter((item) => item.id !== action.payload),
+        list: [...newList],
       };
     case 'CLEAR_CART':
+      localStorage.setItem('cart', JSON.stringify([]));
       return {
         ...state,
         list: [],

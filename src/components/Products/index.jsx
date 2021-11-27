@@ -23,6 +23,7 @@ const Products = ({ data, isLoading }) => {
       ...state,
       products: data,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   // Logic for displaying products
