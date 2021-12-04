@@ -6,6 +6,8 @@ import CartFooter from './CartFooter';
 import CartHead from './CartHead';
 import ClearCart from './ClearCart';
 
+// const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart'));
+
 const ListCart = () => {
   let {
     cart: { list },
@@ -19,16 +21,6 @@ const ListCart = () => {
 
     setListCart([...newList]);
   }, [list]);
-
-  useEffect(() => {
-    if (localStorage.getItem('cart')) {
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      const newList = cart.map((item) => {
-        return { ...item, quantity: 1 };
-      });
-      setListCart([...newList]);
-    }
-  }, []);
 
   const styleQuantity = {
     width: '40px',

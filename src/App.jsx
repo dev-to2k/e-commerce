@@ -6,6 +6,7 @@ import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import Footer from './components/Shared/Footer';
 import Navbar from './components/Shared/Navbar';
+import LoginPage from './pages/Admin/loginPage';
 import CartPage from './pages/cart';
 import HomePage from './pages/home';
 import ProductsPage from './pages/products';
@@ -45,6 +46,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<CartPage />} />
+          <Route path="admin" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
