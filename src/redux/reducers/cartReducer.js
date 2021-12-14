@@ -1,41 +1,21 @@
+import { ActionType } from '../types/index';
+
 const initialState = {
-  list: [],
+  cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
 };
 
 export const cartReducer = (state = initialState, action) => {
-  const { list } = state;
   switch (action.type) {
-    case 'ADD_TO_CART':
-      // if the item is already in the cart, we just group items together
-      if (list.find((item) => item.id === action.payload.id)) {
-        const newList = list.map((item) =>
-          item.id === action.payload.id ? item : state
-        );
-        return {
-          ...state,
-          list: [...newList],
-        };
-      }
-
-      localStorage.setItem('cart', JSON.stringify(list.concat(action.payload)));
-
-      return {
-        ...state,
-        list: [...list, action.payload],
-      };
-    case 'REMOVE_FROM_CART':
-      const newList = list.filter((item) => item.id !== action.payload.id);
-      // localStorage.setItem('cart', JSON.stringify(newList));
-      return {
-        ...state,
-        list: [...newList],
-      };
-    case 'CLEAR_CART':
-      localStorage.setItem('cart', JSON.stringify([]));
-      return {
-        ...state,
-        list: [],
-      };
+    case ActionType.ADD_TO_CART:
+      return { cartItems: action.payload.cartItems };
+    case ActionType.REMOVE_FROM_CART:
+      return { cartItems: action.payload.cartItems };
+    case ActionType.CLEAR_CART:
+      return { cartItems: action.payload.cartItems };
+    case ActionType.INCREMENT_QUANTITY:
+      return { cartItems: action.payload.cartItems };
+    case ActionType.DECREMENT_QUANTITY:
+      return { cartItems: action.payload.cartItems };
     default:
       return state;
   }

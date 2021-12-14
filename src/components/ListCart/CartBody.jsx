@@ -2,15 +2,15 @@ import { AddIcon, CloseIcon, MinusIcon } from '@chakra-ui/icons';
 import { Button, Flex, Image, Td, Text, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/actions/cartAction';
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from '../../redux/actions/cartAction';
 
-const CartBody = ({
-  item,
-  styleQuantity,
-  decreaseQuantity,
-  increaseQuantity,
-}) => {
+const CartBody = ({ item, styleQuantity }) => {
   const dispatch = useDispatch();
+
   return (
     <Tr>
       <Td>
@@ -30,11 +30,17 @@ const CartBody = ({
       </Td>
       <Td isNumeric>
         <Flex style={{ gap: '.5rem' }}>
-          <Button colorScheme="red" onClick={() => decreaseQuantity(item)}>
+          <Button
+            colorScheme="red"
+            onClick={() => dispatch(decrementQuantity(item.id))}
+          >
             <MinusIcon />
           </Button>
           <Text style={styleQuantity}>{item.quantity}</Text>
-          <Button colorScheme="green" onClick={() => increaseQuantity(item)}>
+          <Button
+            colorScheme="green"
+            onClick={() => dispatch(incrementQuantity(item.id))}
+          >
             <AddIcon />
           </Button>
         </Flex>
