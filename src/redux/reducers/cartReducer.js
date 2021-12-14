@@ -1,4 +1,4 @@
-import { ActionType } from '../types/index';
+import { ActionType } from '../types';
 
 const initialState = {
   cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
