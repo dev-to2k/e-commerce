@@ -8,17 +8,9 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { collection, doc, setDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { db } from '../../database/config';
+import { useSelector } from 'react-redux';
 import AlertModal from '../AlertModal';
-
-const addOrderToFirebase = async (order) => {
-  const docRef = doc(collection(db, 'orders'));
-
-  await setDoc(doc(db, 'orders', docRef.id), order);
-};
 
 const FormCheckout = () => {
   const initialState = {
@@ -29,43 +21,39 @@ const FormCheckout = () => {
     address: '',
   };
 
-  const [state, setState] = useState(initialState);
+  const [order, setOrder] = useState(initialState);
 
-  const { firstName, lastName, email, phone, address } = state;
+  const { firstName, lastName, email, phone, address } = order;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { cartItems } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    setOrder({ ...order, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState({
-      ...state,
+    setOrder({
+      ...order,
       products: [...cartItems],
     });
 
     setIsModalOpen(true);
-
-    console.log(state);
-
-    // addOrderToFirebase(state);
-
-    // setTimeout(() => {
-    //   setState(initialState);
-    //   localStorage.removeItem('cartItems');
-    //   dispatch(clearCart());
-    // }, 1000);
   };
 
   const renderModal = () => {
     if (isModalOpen) {
-      return <AlertModal setIsModalOpen={setIsModalOpen} />;
+      return (
+        <AlertModal
+          setIsModalOpen={setIsModalOpen}
+          order={order}
+          initialState={initialState}
+          setOrder={setOrder}
+        />
+      );
     }
     return '';
   };
