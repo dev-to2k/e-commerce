@@ -19,7 +19,6 @@ const styleQuantity = {
 const ListCart = () => {
   let { cartItems } = useSelector((state) => state.cart);
 
-
   return (
     <>
       <Table variant="simple" height="100%">
@@ -31,10 +30,7 @@ const ListCart = () => {
           {cartItems.length > 0 ? (
             cartItems.map((item) => (
               <React.Fragment key={item.id}>
-                <CartBody
-                  item={item}
-                  styleQuantity={styleQuantity}
-                />
+                <CartBody item={item} styleQuantity={styleQuantity} />
               </React.Fragment>
             ))
           ) : (

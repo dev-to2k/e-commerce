@@ -1,11 +1,11 @@
 import { Box, Container, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Filter from '../Filter';
 import Pagination from '../Shared/Pagination';
 import ProductItem from './ProductItem';
 import Search from './Search';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Products = ({ data, isLoading }) => {
   const [state, setState] = useState({
@@ -17,8 +17,8 @@ const Products = ({ data, isLoading }) => {
     products: [],
   });
 
-  const { isFilter, filter, currentPage, productsPerPage, active, products } = state;
-
+  const { isFilter, filter, currentPage, productsPerPage, active, products } =
+    state;
 
   useEffect(() => {
     setState({
@@ -42,7 +42,7 @@ const Products = ({ data, isLoading }) => {
 
   const onSwitchCategory = (category) => {
     const newFilter = data.filter(
-      (product) => product.category === category.toLowerCase(),
+      (product) => product.category === category.toLowerCase()
     );
     setState({
       ...state,
@@ -107,7 +107,7 @@ const Products = ({ data, isLoading }) => {
         }
         if (rate === 'low-to-high') {
           const newFilter = products.sort(
-            (a, b) => a.rating.rate - b.rating.rate,
+            (a, b) => a.rating.rate - b.rating.rate
           );
           setState({
             ...state,
@@ -116,7 +116,7 @@ const Products = ({ data, isLoading }) => {
         }
         if (rate === 'high-to-low') {
           const newFilter = products.sort(
-            (a, b) => b.rating.rate - a.rating.rate,
+            (a, b) => b.rating.rate - a.rating.rate
           );
           setState({
             ...state,
@@ -124,8 +124,8 @@ const Products = ({ data, isLoading }) => {
           });
         }
         break;
-      case 'Men\'s clothing':
-      case 'Women\'s clothing':
+      case "Men's clothing":
+      case "Women's clothing":
       case 'Jewelery':
       case 'Electronics':
       default:
@@ -145,7 +145,7 @@ const Products = ({ data, isLoading }) => {
         }
         if (rate === 'low-to-high') {
           const newFilter = filter.sort(
-            (a, b) => a.rating.rate - b.rating.rate,
+            (a, b) => a.rating.rate - b.rating.rate
           );
           setState({
             ...state,
@@ -154,7 +154,7 @@ const Products = ({ data, isLoading }) => {
         }
         if (rate === 'high-to-low') {
           const newFilter = filter.sort(
-            (a, b) => b.rating.rate - a.rating.rate,
+            (a, b) => b.rating.rate - a.rating.rate
           );
           setState({
             ...state,
@@ -168,7 +168,7 @@ const Products = ({ data, isLoading }) => {
   const onSearch = (search) => {
     const searchName = search.toLowerCase();
     const newFilter = data.filter((product) =>
-      product.title.toLowerCase().includes(searchName),
+      product.title.toLowerCase().includes(searchName)
     );
     setState({
       ...state,
@@ -180,7 +180,7 @@ const Products = ({ data, isLoading }) => {
   const notify = () => {
     return toast.success('Added to your cart!', {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -202,8 +202,8 @@ const Products = ({ data, isLoading }) => {
 
   return (
     <Box paddingY={10} backgroundColor={'gray.100'}>
-      <Container maxW='1204'>
-        <Heading textAlign='center' mb={10}>
+      <Container maxW="1204">
+        <Heading textAlign="center" mb={10}>
           Products
         </Heading>
         <Filter
@@ -212,10 +212,10 @@ const Products = ({ data, isLoading }) => {
           onFilter={onFilter}
         />
         <Search onSearch={onSearch} />
-        <Flex wrap='wrap' marginLeft={-30}>
+        <Flex wrap="wrap" marginLeft={-30}>
           {isLoading ? (
-            <Box mx='auto' pl={30} mb={5}>
-              <Spinner color='green' size='xl' />
+            <Box mx="auto" pl={30} mb={5}>
+              <Spinner color="green" size="xl" />
               <Text>Loading...</Text>
             </Box>
           ) : (
