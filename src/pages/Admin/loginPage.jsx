@@ -1,13 +1,5 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Link,
-  Stack,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import FormLogin from './FormLogin';
+import { Box, Flex, Heading, Link, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import FormLogin from '../../components/Admin/FormLogin';
 
 export default function LoginPage() {
   return (

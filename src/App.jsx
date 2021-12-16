@@ -1,15 +1,19 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
-import NotFound from './components/NotFound';
-import Footer from './components/Shared/Footer';
 import Navbar from './components/Shared/Navbar';
 import LoginPage from './pages/Admin/loginPage';
 import CartPage from './pages/cart';
 import HomePage from './pages/home';
 import ProductsPage from './pages/products';
+import NotFound from './components/NotFound';
+import Footer from './components/Shared/Footer';
+import AdminPage from './pages/Admin/AdminPage';
+import FormProduct from './components/Admin/FormProduct';
+import Dashboard from './components/Admin/Dashboard';
+import Order from './components/Admin/Order';
 
 function App() {
   const [data, setData] = useState([]);
@@ -32,22 +36,27 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="/" element={<Navbar />}>
+        <Route path='/' element={<Navbar />}>
           <Route
             index
             element={<HomePage data={data} isLoading={isLoading} />}
           />
           <Route
-            path="products"
+            path='products'
             element={<ProductsPage data={data} isLoading={isLoading} />}
           />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="admin" element={<LoginPage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path='about' element={<About />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='cart' element={<CartPage />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='admin' element={<AdminPage />}>
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='form' element={<FormProduct />} />
+            <Route path='orders' element={<Order />} />
+          </Route>
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
       <Footer />

@@ -55,7 +55,7 @@ const FormCheckout = () => {
         />
       );
     }
-    return '';
+    return;
   };
 
   return (
